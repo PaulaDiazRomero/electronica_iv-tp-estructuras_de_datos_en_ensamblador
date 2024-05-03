@@ -19,6 +19,28 @@
     .type comparaMemoria, %function
     .global comparaMemoria
 comparaMemoria:
-    mov r0,#0
-    bx lr
+    push {r4,lr}   // r0 = *i, r1 = *d, r2 = n
+    mov r12, #0    // r12 = j, r3 = i[j], r4 = d[j]
+0:
+    cmp r12, r2
+    BGE 3f         // si r12 >= r2, salto a 3
+    ldrb r3, [r0, r12]
+    ldrb r4, [r1, r12]
+    cmp r3, r4
+    BNE 1f         // si r3 != r4, salto a 1
+    add r12, #1
+    B 0b
+1:
+    cmp r3, r4
+    BGT 2f         // si r3 > r4, salto a 2
+    mov r0, #-1
+    B 4f
+2:
+    mov r0, #1
+    B 4f
+3:
+    mov r0, #0
+4:
+    // retorno
+    pop {r4,pc}
     .size comparaMemoria, . - comparaMemoria
