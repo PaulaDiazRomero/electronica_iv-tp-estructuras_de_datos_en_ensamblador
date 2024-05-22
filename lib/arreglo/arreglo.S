@@ -47,7 +47,7 @@ endfun Arreglo_init
 defun Arreglo_apunta
     ldr r2, [r0, #Arreglo_numElementos]       // Traigo n = n° de elementos
     cmp r1, r2                                // Comparo r1 = índice con n
-    BGE 1f                                    // Si i >= n, retorno NULL
+    BHS 1f                                    // Si i >= n, retorno NULL
 0:
     ldr r3, [r0, #Arreglo_base]               // Traigo *b = puntero base
     ldr r12, [r0, #Arreglo_tamanoElemento]    // Traigo t = tamaño de los elementos
@@ -165,7 +165,7 @@ defun Arreglo_intercambia                     // r0 = *d, r1 = i, r2 = j
     mov r0, #0
     B 3f
 2:
-    mov r0, #1
+    mov r0, #-1
 3:
     pop {r4-r5,pc}
 endfun Arreglo_intercambia
