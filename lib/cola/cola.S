@@ -87,7 +87,7 @@ endfun Cola_pone
  * @return int 0 si la operación tuvo éxito. -1 si la cola estaba vacía.
  */
 defun Cola_quita           // r0 = *d; r1 = destino
-    push {r4-r5,lr}
+    push {r4-r6,lr}
     ldr r2, [r0, #Cola_llena]
     ldr r3, [r0, #Cola_pEscritura]
     ldr r4, [r0, #Cola_pLectura]
@@ -97,7 +97,8 @@ defun Cola_quita           // r0 = *d; r1 = destino
     mov r2, #0                                // Para llena = 1, pongo llena = 0
     str r2, [r0, #Cola_llena]                 // Guardo llena
 0:                                          // 0:
-    str r4, [r1]                              // Guardo el valor que lee pL en *destino
+    ldr r6, [r4]                              // Traigo el valor leído en pL
+    str r6, [r1]                              // Guardo el valor que lee pL en *destino
     add r4, #4                                // pL ++ (x4)
     cmp r4, r5                                // Comparo pL con el límite
     BNE 1f                                    // Si pL != límite, salto a 1
@@ -112,5 +113,5 @@ defun Cola_quita           // r0 = *d; r1 = destino
     BNE 0b                                    // Si pE != pL, salto a 0
     mov r0, #-1                               // Si pE = pL, no pudo realizarse la operación: retorno -1
 3:                                          // 3:
-    pop {r4-r5,pc}                            // Salida
+    pop {r4-r6,pc}                            // Salida
 endfun Cola_quita
