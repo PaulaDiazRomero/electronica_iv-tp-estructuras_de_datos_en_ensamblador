@@ -71,8 +71,8 @@ endfun Arreglo_apunta
  * @param destino Puntero a la regió de memoria donde copiar el valor
  * @return int 0 si la operación pudo realizarse, -1 si el elemento no existe
  */
-defun Arreglo_lee                             // r0 = *descriptor; r1 = índice; r2 = *destino CORREGIR LO DE ABAJO
-   ldr r12, [r0, #Arreglo_numElementos]       // Traigo n = n° de elementos
+defun Arreglo_lee                              // r0 = *descriptor; r1 = índice; r2 = *destino CORREGIR LO DE ABAJO
+    ldr r12, [r0, #Arreglo_numElementos]       // Traigo n = n° de elementos
     cmp r1, r12                                // Comparo r1 = índice con n
     BHS 2f                                     // Si r1 >= n, salto 
     ldr r3, [r0, #Arreglo_base]                // Traigo b = base a r3
